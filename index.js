@@ -49,7 +49,7 @@ app.get('/show', (req, res) => {
       try {
         const query = db.collection('quotes')
         const response = []
-        query.get().then(querySnapshot => {
+        await query.get().then(querySnapshot => {
           const docs = querySnapshot.docs
           for (const doc of docs) {
             const quotes = {
@@ -59,8 +59,8 @@ app.get('/show', (req, res) => {
             }
             response.push(quotes)
           }
-          return res.status(200).send(response)
         })
+        return res.status(200).send(response)
       } catch (error) {
         console.log(error)
         return res.status(500).send(error)
